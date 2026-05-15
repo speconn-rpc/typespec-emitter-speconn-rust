@@ -1,2 +1,2 @@
-import type { Program } from "@typespec/compiler";
-export declare function $onEmit(program: Program): Promise<void>;
+import type { EmitContext } from "@typespec/compiler";
+export declare function $onEmit(context: EmitContext): Promise<void>;

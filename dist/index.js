@@ -156,12 +156,13 @@ function genServer(svc) {
     L.push("");
     return L.join("\n");
 }
-export async function $onEmit(program) {
+export async function $onEmit(context) {
+    const program = context.program;
     const services = collectServices(program);
     if (services.length === 0)
         return;
-    const opts = program.emitterOptions?.["@speconn-rpc/typespec-emitter-speconn-rust"] ?? {};
-    const outDir = opts["output-dir"] ?? "generated";
+    const outDir = context.emitterOutputDir;
+    const opts = context.options ?? {};
     const emitClient = !opts["server-only"];
     const emitServer = !opts["client-only"];
     mkdirSync(outDir, { recursive: true });

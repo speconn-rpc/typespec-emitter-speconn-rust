@@ -6,7 +6,7 @@ import {
   toSnakeCase,
   type ServiceInfo,
 } from "@speconn-rpc/typespec-emitter-speconn-core";
-import type { Model, Program } from "@typespec/compiler";
+import type { EmitContext, Model } from "@typespec/compiler";
 import { writeFileSync, mkdirSync } from "node:fs";
 import { join } from "node:path";
 
@@ -174,12 +174,13 @@ function genServer(svc: ServiceInfo): string {
   return L.join("\n");
 }
 
-export async function $onEmit(program: Program): Promise<void> {
+export async function $onEmit(context: EmitContext): Promise<void> {
+  const program = context.program;
   const services = collectServices(program);
   if (services.length === 0) return;
 
-  const opts = (program as any).emitterOptions?.["@speconn-rpc/typespec-emitter-speconn-rust"] ?? {};
-  const outDir: string = opts["output-dir"] ?? "generated";
+  const outDir: string = context.emitterOutputDir;
+  const opts = (context as any).options ?? {};
   const emitClient = !opts["server-only"];
   const emitServer = !opts["client-only"];
   mkdirSync(outDir, { recursive: true });
