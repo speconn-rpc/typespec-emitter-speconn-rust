@@ -180,10 +180,12 @@ export async function $onEmit(program: Program): Promise<void> {
 
   const opts = (program as any).emitterOptions?.["@speconn-rpc/typespec-emitter-speconn-rust"] ?? {};
   const outDir: string = opts["output-dir"] ?? "generated";
+  const emitClient = !opts["server-only"];
+  const emitServer = !opts["client-only"];
   mkdirSync(outDir, { recursive: true });
 
   for (const svc of services) {
-    writeFileSync(join(outDir, `${clientFileName(svc)}.rs`), genClient(svc), "utf-8");
-    writeFileSync(join(outDir, `${serverFileName(svc)}.rs`), genServer(svc), "utf-8");
+    if (emitClient) writeFileSync(join(outDir, `${clientFileName(svc)}.rs`), genClient(svc), "utf-8");
+    if (emitServer) writeFileSync(join(outDir, `${serverFileName(svc)}.rs`), genServer(svc), "utf-8");
   }
 }
