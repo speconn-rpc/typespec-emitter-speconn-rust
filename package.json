@@ -1,6 +1,6 @@
 {
   "name": "@speconn-rpc/typespec-emitter-speconn-rust",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "type": "module",
   "main": "dist/index.js",
   "exports": {
@@ -10,7 +10,7 @@
     "@typespec/compiler": "^1.12.0"
   },
   "dependencies": {
-    "@speconn-rpc/typespec-emitter-speconn-core": "file:../typespec-emitter-speconn-core",
+    "@speconn-rpc/typespec-emitter-speconn-core": "^1.0.0",
     "typescript": "^6.0.3"
   },
   "scripts": {
