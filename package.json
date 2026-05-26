@@ -24,6 +24,6 @@
     "@types/node": "^25.8.0"
   },
   "publishConfig": {
-    "registry": "http://10.199.64.20:3000/api/packages/speconn-rpc/npm/"
+    "registry": "http://10.199.64.20:30000/api/packages/speconn-rpc/npm/"
   }
 }
